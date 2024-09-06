@@ -1,6 +1,6 @@
 services:
   klipper:
-    image: kdock
+    image: ghcr.io/nelsongraca/kdock-klipper
     network_mode: host
     privileged: true
     volumes:
@@ -20,7 +20,7 @@ services:
       PLUGIN_TMC3: /opt/kdock/data/repos/klipper_tmc_autotune/motor_database.cfg
  
   moonraker:
-    image: mdock
+    image: ghcr.io/nelsongraca/kdock-moonraker
     depends_on:
       - klipper
     volumes:
@@ -37,5 +37,3 @@ services:
       - ./data/config/mainsail.json:/usr/share/nginx/html/config.json
     ports:
       - 8080:80
-    depends_on:
-      - moonraker
