@@ -1,0 +1,41 @@
+services:
+  klipper:
+    image: kdock
+    network_mode: host
+    privileged: true
+    volumes:
+      - ./data:/opt/kdock/data
+      - /dev:/host/dev
+    group_add:
+      - cron
+    environment:
+      PLUGIN_TR: /opt/kdock/data/repos/TradRack/Klipper_Stuff/klippy_module/trad_rack.py
+      PLUGIN_LED: /opt/kdock/data/repos/klipper-led_effect/src/led_effect.py
+      PLUGIN_RH: /opt/kdock/data/repos/extras/resonance_holder.py
+      PLUGIN_CARTO1: /opt/kdock/data/repos/cartographer-klipper/idm.py
+      PLUGIN_CARTO2: /opt/kdock/data/repos/cartographer-klipper/cartographer.py
+      PLUGIN_CARTO3: /opt/kdock/data/repos/cartographer-klipper/scanner.py
+      PLUGIN_TMC1: /opt/kdock/data/repos/klipper_tmc_autotune/autotune_tmc.py
+      PLUGIN_TMC2: /opt/kdock/data/repos/klipper_tmc_autotune/motor_constants.py
+      PLUGIN_TMC3: /opt/kdock/data/repos/klipper_tmc_autotune/motor_database.cfg
+ 
+  moonraker:
+    image: mdock
+    depends_on:
+      - klipper
+    volumes:
+      - ./data:/opt/kdock/data
+    environment:
+      PLUGIN_KE: /opt/kdock/data/repos/extras/klipper-estimator.py
+      PLUGIN_T: /opt/kdock/data/repos/moonraker-timelapse/component/timelapse.py
+    ports:
+      - 7125:7125 
+
+  mainsail:
+    image: ghcr.io/mainsail-crew/mainsail
+    volumes:
+      - ./data/config/mainsail.json:/usr/share/nginx/html/config.json
+    ports:
+      - 8080:80
+    depends_on:
+      - moonraker
