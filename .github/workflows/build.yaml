@@ -43,8 +43,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          cache-to: type=gha
           cache-from: type=gha
+          cache-to: type=gha,mode=max
           push: true
           tags: ghcr.io/nelsongraca/kdock-klipper:latest
           target: klipper
@@ -53,8 +53,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          cache-to: type=gha
           cache-from: type=gha
+          cache-to: type=gha,mode=max
           push: true
           tags: ghcr.io/nelsongraca/kdock-moonraker:latest
           target: moonraker
