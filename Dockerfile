@@ -47,7 +47,6 @@ RUN <<EOT bash
   source .venv/bin/activate
   pip install --upgrade setuptools pip
   pip install -r moonraker/scripts/moonraker-requirements.txt
-  pip install -r moonraker/scripts/moonraker-speedups.txt
   mkdir -p /opt/kdock/data
 EOT
 
