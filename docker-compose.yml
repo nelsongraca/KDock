@@ -18,7 +18,7 @@ services:
       PLUGIN_TMC1: /opt/kdock/data/repos/klipper_tmc_autotune/autotune_tmc.py
       PLUGIN_TMC2: /opt/kdock/data/repos/klipper_tmc_autotune/motor_constants.py
       PLUGIN_TMC3: /opt/kdock/data/repos/klipper_tmc_autotune/motor_database.cfg
- 
+      EXTRA_DEPS: GitPython matplotlib numpy scipy PyWavelets
   moonraker:
     image: ghcr.io/nelsongraca/kdock-moonraker
     depends_on:

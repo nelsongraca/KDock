@@ -13,6 +13,11 @@ done
 
 source ./.venv/bin/activate
 
+#install extra dependencies if defined
+if [ -n "$EXTRA_DEPS" ]; then
+  pip install $EXTRA_DEPS
+fi
+
 python klipper/klippy/klippy.py \
 	-a data/klipper.sock \
 	-l data/logs/klippy.log \
