@@ -60,3 +60,27 @@ jobs:
           push: true
           tags: ghcr.io/nelsongraca/kdock-moonraker:latest
           target: moonraker
+          
+  clean:
+    name: Delete old images
+    runs-on: ubuntu-latest
+
+    permissions:
+      packages: write
+    steps:
+      -
+        name: Clean Klipper Images
+        uses: actions/delete-package-versions@v5
+        with: 
+          package-name: 'kdock-klipper'
+          package-type: 'container'
+          min-versions-to-keep: 0
+          delete-only-untagged-versions: 'true'
+      -
+        name: Clean Moonraker Images
+        uses: actions/delete-package-versions@v5
+        with: 
+          package-name: 'kdock-moonraker'
+          package-type: 'container'
+          min-versions-to-keep: 0
+          delete-only-untagged-versions: 'true'
