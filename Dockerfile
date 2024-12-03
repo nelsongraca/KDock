@@ -1,7 +1,7 @@
 FROM alpine:latest AS kdock
 
 RUN apk add  --no-cache python3 python3-dev py3-pip \
-    make gcc musl-dev libffi-dev newlib \
+    make gcc g++ gfortran openblas-dev musl-dev libffi-dev newlib \
     avrdude dfu-util \
     iproute2 libsodium ffmpeg wget socat \
     git bash tini shadow && \
