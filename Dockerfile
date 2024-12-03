@@ -1,7 +1,7 @@
 FROM alpine:latest AS kdock
 
 RUN apk add  --no-cache python3 python3-dev py3-pip \
-    make gcc musl-dev libffi-dev newlib \
+    make gcc g++ gfortran openblas-dev musl-dev libffi-dev newlib \
     avrdude dfu-util \
     iproute2 libsodium ffmpeg wget socat \
     git bash tini shadow && \
@@ -20,6 +20,13 @@ CMD ["bash", "/opt/kdock/start.sh"]
 
 USER kdock
 
+RUN <<EOT bash
+  source /opt/kdock/.venv/bin/activate
+  pip install --upgrade setuptools pip
+  pip install matplotlib numpy scipy
+  deactivate
+EOT
+
 FROM kdock AS klipper
 
 ADD --chown=kdock:kdock --chmod=550 ./klipper/start.sh start.sh
@@ -28,7 +35,6 @@ ADD --chown=kdock:kdock --keep-git-dir=false "https://github.com/DangerKlippers/
 
 RUN <<EOT bash
   source .venv/bin/activate
-  pip install --upgrade setuptools pip
   sed -i 's/numpy==.*/numpy==1.26.4/' klipper/scripts/klippy-requirements.txt
   pip install -r klipper/scripts/klippy-requirements.txt
   python -m compileall klipper/klippy
@@ -45,7 +51,6 @@ ADD --chown=kdock:kdock --keep-git-dir=false "https://github.com/Arksine/moonrak
 
 RUN <<EOT bash
   source .venv/bin/activate
-  pip install --upgrade setuptools pip
   pip install -r moonraker/scripts/moonraker-requirements.txt
   mkdir -p /opt/kdock/data
 EOT
