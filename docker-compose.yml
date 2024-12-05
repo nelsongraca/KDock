@@ -1,6 +1,6 @@
 services:
-  klipper:
-    image: ghcr.io/nelsongraca/kdock-klipper
+  kaliko:
+    image: ghcr.io/nelsongraca/kdock-kalico
     network_mode: host
     privileged: true
     volumes:
@@ -22,7 +22,7 @@ services:
   moonraker:
     image: ghcr.io/nelsongraca/kdock-moonraker
     depends_on:
-      - klipper
+      - kalico
     volumes:
       - ./data:/opt/kdock/data
     environment:

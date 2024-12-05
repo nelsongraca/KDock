@@ -27,18 +27,18 @@ RUN <<EOT bash
   deactivate
 EOT
 
-FROM kdock AS klipper
+FROM kdock AS kalico
 
-ADD --chown=kdock:kdock --chmod=550 ./klipper/start.sh start.sh
+ADD --chown=kdock:kdock --chmod=550 kalico/start.sh start.sh
 
-ADD --chown=kdock:kdock --keep-git-dir=false "https://github.com/DangerKlippers/danger-klipper.git#master" klipper
+ADD --chown=kdock:kdock --keep-git-dir=false "https://github.com/KalicoCrew/kalico.git#main" kalico
 
 RUN <<EOT bash
   source .venv/bin/activate
-  sed -i 's/numpy==.*/numpy==1.26.4/' klipper/scripts/klippy-requirements.txt
-  pip install -r klipper/scripts/klippy-requirements.txt
-  python -m compileall klipper/klippy
-  python klipper/klippy/chelper/__init__.py
+  sed -i 's/numpy==.*/numpy==1.26.4/' kalico/scripts/klippy-requirements.txt
+  pip install -r kalico/scripts/klippy-requirements.txt
+  python -m compileall kalico/klippy
+  python kalico/klippy/chelper/__init__.py
   mkdir -p /opt/kdock/data
 EOT
 

@@ -68,7 +68,7 @@ jobs:
       fail-fast: false
       matrix:
         component:
-          - klipper
+          - kalico
           - moonraker
         platform:
           - linux/amd64
@@ -140,7 +140,7 @@ jobs:
       fail-fast: false
       matrix:
         component:
-          - klipper
+          - kalico
           - moonraker
           
     permissions:
@@ -181,7 +181,7 @@ jobs:
       fail-fast: false
       matrix:
         image:
-          - kdock-klipper
+          - kdock-kalico
           - kdock-moonraker
           - kdock-cache
           
