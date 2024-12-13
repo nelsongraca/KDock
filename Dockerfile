@@ -4,7 +4,7 @@ RUN apk add  --no-cache python3 python3-dev py3-pip \
     make gcc g++ gfortran openblas-dev musl-dev libffi-dev newlib \
     avrdude dfu-util \
     iproute2 libsodium ffmpeg wget socat \
-    git bash tini shadow && \
+    git bash tini shadow curl && \
     addgroup -g 1000 kdock && \
     adduser -s '/bin/bash' -G kdock -u 1000 -h '/opt/kdock' -D kdock && \
     python -m venv /opt/kdock/.venv && \
