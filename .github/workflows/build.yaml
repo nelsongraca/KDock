@@ -13,13 +13,14 @@ on:
 jobs:
   base-build:
     name: Build and cache Base
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.platform == 'linux/amd64' && 'ubuntu-latest' || 'ubuntu-latest-arm' }}
     strategy:
       fail-fast: false
       matrix:
         platform:
           - linux/amd64
           - linux/arm64
+          - linux/arm/v7
     permissions:
       contents: read
       packages: write
@@ -61,7 +62,7 @@ jobs:
   
   build:
     name: Build and Push
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.platform == 'linux/amd64' && 'ubuntu-latest' || 'ubuntu-latest-arm' }}
     needs: base-build
     
     strategy:
@@ -73,6 +74,7 @@ jobs:
         platform:
           - linux/amd64
           - linux/arm64
+          - linux/arm/v7
     permissions:
       contents: read
       packages: write
